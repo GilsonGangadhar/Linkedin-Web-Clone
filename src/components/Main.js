@@ -64,6 +64,27 @@ const Main = (props) => {
                         <a>2 comments</a>
                     </li>
                 </SocialCounts>
+                <SocialActions>
+                    <button>
+                        <img src="/images/photo.svg" />
+                        <span>Like</span>
+                    </button>
+
+                    <button>
+                        <img src="/images/photo.svg" />
+                        <span>Comments</span>
+                    </button>
+
+                    <button>
+                        <img src="/images/photo.svg" />
+                        <span>Share</span>
+                    </button>
+
+                    <button>
+                        <img src="/images/photo.svg" />
+                        <span>Send</span>
+                    </button>
+                </SocialActions>
             </Article>
         </div>
     </Container>
@@ -242,6 +263,28 @@ li {
     
 }
 `;
+
+const SocialActions = styled.div`
+align-items : center; 
+display : flex; 
+justify-content : flex-start; 
+margin : 0; 
+min-height : 40px;
+padding : 4px 8px; 
+button { 
+    display : inline-flex;
+    align-items : center;
+    padding : 8px;
+    color : #0a66c2;
+
+    @media (min-width : 768px) {
+        span{
+            margin-left : 8px;
+        }
+    }
+}
+
+`; 
 
 
 export default Main

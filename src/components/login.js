@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+import {connect} from 'react-redux'
 
-const login = (props) => {
+const Login = (props) => {
     return (
         <Container>
             <Nav>
@@ -162,6 +163,10 @@ color : rgba(0, 0, 0, 0.6);
 }
 `;
 
+const mapStateToProps = (state) => {
+    return{}
+}
 
+const mapDispatchToProps = (dispatch) => {{}}
 
-export default login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
