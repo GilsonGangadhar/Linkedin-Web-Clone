@@ -30,7 +30,7 @@ const PostModal = (props) =>{
 
     const postArticle = (e) => {
         e.preventDefault()
-        if(e.target != e.currentTarget){
+        if(e.target !== e.currentTarget){ 
             return;
         }
 
