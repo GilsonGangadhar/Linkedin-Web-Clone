@@ -1,11 +1,21 @@
+import {useState} from 'react'
 import styled from 'styled-components'
 
-const PostModal = () =>{
-    return <Container>
+const PostModal = (props) =>{
+    const [editorText, setEditorText] = useState("")
+
+    const reset = (e) => {
+        setEditorText("")
+        props.handleClick(e)
+    }
+    return ( 
+    <>
+    { props.showModal === "open" && 
+    <Container>
         <Content>
             <Header>
                 <h2>create a post</h2>
-                <button>
+                <button onClick={(event) => reset(event)}>
                     <img src="/images/plus-icon.svg" />
                 </button>
             </Header>
@@ -14,12 +24,40 @@ const PostModal = () =>{
                     <img src="/images/user.svg" />
                     <span>Name</span>
                 </UserInfo>
+                <Editor>
+                <textarea value={editorText} onChange={(e) => setEditorText(e.target.value)} placeholder="what do you want to talk about?" autofocus={true} ></textarea>
+                </Editor>
             </SharedContent>
             <SharedCreation>
-                Actions
+                <AttachAssets>
+                    {/* shared-image */}
+                    <AssetButton>
+                    <img src="/images/nav-notifications.svg" />
+                    </AssetButton>
+                    {/* shared-video */}
+                    <AssetButton>
+                    <img src="/images/nav-notifications.svg" /> 
+                    </AssetButton>
+
+                </AttachAssets>
+
+                <ShareComment>
+                    {/* comment image */}
+                    <AssetButton>
+                        <img src="/images/photo.svg" />
+                        Anyone
+                    </AssetButton>
+                </ShareComment>
+                
+                <PostButton disabled={!editorText ? true : false}>
+                    Post
+                </PostButton>
             </SharedCreation>
         </Content>
     </Container>
+    }
+    </>   
+    )
 }
 
 const Container = styled.div`
@@ -31,6 +69,7 @@ bottom : 0;
 z-index : 9999;
 color : black;  
 background-color : rgba(0, 0, 0, 0.8);
+animation : fadeIn 0.3s;
 `;
 
 const Content = styled.div`
@@ -64,7 +103,7 @@ button {
     min-width : auto; 
     color : rgba(0,0,0,0.15)
 }
-svg{
+svg, img{
     pointer-events : none;
 }
 `;
@@ -82,7 +121,7 @@ padding : 8px 12px;
 const UserInfo = styled.div`
 display : flex;
 align-items : center; 
-padding : 12px 24px; 
+padding : 12px 24px;  
 svg, img{
     width : 48px;
     height : 48px; 
@@ -102,6 +141,62 @@ const SharedCreation = styled.div`
 display : flex; 
 justify-content : space-between;
 padding : 12px 24px 12px 16px
+`; 
+
+const AssetButton = styled.button`
+display : flex; 
+align-items : center; 
+height : 40px; 
+min-width : auto; 
+color : rgba(0,0,0,0.5);
+`;
+
+const AttachAssets = styled.div`
+align-items : center; 
+display : flex;
+padding-right : 8px; 
+${AssetButton}{
+    width : 40px;
+}
+`; 
+
+const ShareComment = styled.div`
+padding-left : 8px; 
+margin-right : auto; 
+border-left : 1px solid rgba(0,0,0,0.15);
+$(AssetButton){
+    svg{
+        margin-right : 5px; 
+    }
+}
+`; 
+
+const PostButton = styled.button`
+min-width : 60px; 
+border-radius : 20px;
+padding-left : 16px; 
+padding-right : 16px; 
+background : ${(props) => (props.disabled? "rgba(0,0,0,0.8)" : "#0a66a2")}; 
+color : ${(props) => (props.disabled? "rgba(1,1,1,0.2)" : "white")}; 
+&:hover{
+    background : ${props => props.disabled ? "rgba(0,0,0,0.08)" : "#004182" }; 
+}
+`; 
+
+const Editor = styled.div`
+padding : 12px 24px;
+textarea {
+    width : 100%; 
+    min-height : 100px; 
+    resize : none;
+}
+
+input {
+    width : 100%; 
+    height : 35px;
+    font-size : 16px; 
+    margin-bottom : 20px; 
+}
 `; 
 
 
