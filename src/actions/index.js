@@ -15,3 +15,23 @@ export function signInAPI(){
         .catch((error) => alert(error.messages));
     };
 }
+
+export function getUserAuth() {
+    return(dispatch) => {
+        auth.onAuthStateChanged(async (user) => {
+            if(user) {
+                dispatch(setUser(user))
+            }
+        })
+    }
+}
+
+export function signOutAPI() {
+    return(dispatch) => {
+        auth.signOut()
+        .then(()=> {
+            dispatch(setUser(null))
+        })
+        .catch((error) => alert(error.messages))
+    }
+}
