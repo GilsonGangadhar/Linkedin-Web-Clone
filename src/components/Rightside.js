@@ -36,7 +36,7 @@ const Rightside = (props) => {
         </FollowCard>
 
         <BannerCard>
-            <img src="https://static-exp1.licdn.com/scds/common/u/images/promo/ads/li_evergreen_jobs_ad_300x250_v1.jpg" />
+            <img src="https://i.pinimg.com/originals/8e/0a/5c/8e0a5c66acebcef14a83b9cb3f3b8f94.png" />
         </BannerCard>
     </Container>
 }
