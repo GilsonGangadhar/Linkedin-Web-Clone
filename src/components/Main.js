@@ -32,9 +32,7 @@ const Main = (props) => {
   };
   return (
     <>
-      {props.articles.length === 0 ? (
-        <p>There are no articles</p>
-      ) : (
+      {
         <Container>
           <ShareBox>
             <div>
@@ -75,7 +73,7 @@ const Main = (props) => {
           <Content>
             {/* spin loader image */}
             {props.loading && <img src="/images/spinner-loader-icon.svg" />}
-            {props.articles.length > 0 &&
+            {props.articles.length > 0 ? (
               props.articles.map((article, key) => (
                 <Article key={key}>
                   <SharedActor>
@@ -91,9 +89,11 @@ const Main = (props) => {
                     </a>
                     <EllipsisDropDown>
                       <img src="/images/ellipsis-solid-icon.svg" />
-                      <DropList onClick={() => props.deleteArticle(article.description)}>
+                      <DropList
+                        onClick={() => props.deleteArticle(article.description)}
+                      >
                         <a>Delete</a>
-                       </DropList>
+                      </DropList>
                     </EllipsisDropDown>
                   </SharedActor>
                   <Description>{article.description}</Description>
@@ -140,11 +140,14 @@ const Main = (props) => {
                     </button>
                   </SocialActions>
                 </Article>
-              ))}
+              ))
+            ) : (
+              <NoPosts>There are no posts</NoPosts>
+            )}
           </Content>
           <PostModal showModal={showModal} handleClick={handleClick} />
         </Container>
-      )}
+      }
     </>
   );
 };
@@ -153,20 +156,27 @@ const Container = styled.div`
   grid-area: main;
 `;
 
+const NoPosts = styled.p`
+  color: #222222;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 30px;
+`;
+
 const DropList = styled.div`
-position : absolute; 
-top : 16px;
-right: 10px;
-cursor: pointer;
-background : white;
-border-radius : 10px; 
-border: 1px solid grey;
-height : 40px; 
-width: 100px;
-font-size : 15px; 
-transition-duration : 167ms; 
-text-align : center; 
-display: none;
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  cursor: pointer;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid grey;
+  height: 40px;
+  width: 100px;
+  font-size: 15px;
+  transition-duration: 167ms;
+  text-align: center;
+  display: none;
 `;
 
 const EllipsisDropDown = styled.button`
@@ -181,7 +191,7 @@ position: relative;
         padding: 0px 30px;
       }
     }
-`
+`;
 
 const CommonCard = styled.div`
   text-align: center;
@@ -354,8 +364,8 @@ const SocialCounts = styled.ul`
     font-size: 12px;
     button {
       display: flex;
-      border : none; 
-      background-color : white; 
+      border: none;
+      background-color: white;
     }
   }
 `;
@@ -372,8 +382,8 @@ const SocialActions = styled.div`
     align-items: center;
     padding: 8px;
     color: #0a66c2;
-    border : none; 
-    background-color : white; 
+    border: none;
+    background-color: white;
 
     img {
       height: 17px;
@@ -404,7 +414,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getArticles: () => dispatch(getArticlesAPI()),
-  deleteArticle: (val) => dispatch(deleteArticleApi(val))
+  deleteArticle: (val) => dispatch(deleteArticleApi(val)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
