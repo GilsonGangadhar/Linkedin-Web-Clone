@@ -301,6 +301,20 @@ const UploadImage = styled.div`
   img {
     width: 100%;
   }
+
+  p {
+    padding: 10px 0px;
+    background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 0px;
+  }
 `;
 
 const mapStateToProps = (state) => {

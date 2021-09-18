@@ -98,6 +98,19 @@ export function postArticleAPI(payload) {
     }
 }
 
+
+export function deleteArticleApi(payload) {
+    console.log(payload, "delete payload")
+    return(dispatch) => {
+        dispatch(setLoading(true))
+        db.collection('articles').where("description", "==", payload).get()
+        .then(querySnapshot => {
+            querySnapshot.docs[0].ref.delete();
+        });
+        dispatch(setLoading(false))
+    }
+}
+
 export function getArticlesAPI(){
     return(dispatch) => {
         let payload;

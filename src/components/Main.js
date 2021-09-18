@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import PostModal from "./PostModal";
-import { getArticlesAPI } from "../actions";
+import { getArticlesAPI, deleteArticleApi } from "../actions";
 import ReactPlayer from "react-player";
 
 const Main = (props) => {
@@ -74,7 +74,7 @@ const Main = (props) => {
           </ShareBox>
           <Content>
             {/* spin loader image */}
-            {props.loading && <img src="/images/spinner-icon.svg" />}
+            {props.loading && <img src="/images/spinner-loader-icon.svg" />}
             {props.articles.length > 0 &&
               props.articles.map((article, key) => (
                 <Article key={key}>
@@ -89,9 +89,12 @@ const Main = (props) => {
                         </span>
                       </div>
                     </a>
-                    <button>
+                    <EllipsisDropDown>
                       <img src="/images/ellipsis-solid-icon.svg" />
-                    </button>
+                      <DropList onClick={() => props.deleteArticle(article.description)}>
+                        <a>Delete</a>
+                       </DropList>
+                    </EllipsisDropDown>
                   </SharedActor>
                   <Description>{article.description}</Description>
                   <SharedImage>
@@ -149,6 +152,36 @@ const Main = (props) => {
 const Container = styled.div`
   grid-area: main;
 `;
+
+const DropList = styled.div`
+position : absolute; 
+top : 16px;
+right: 10px;
+cursor: pointer;
+background : white;
+border-radius : 10px; 
+border: 1px solid grey;
+height : 40px; 
+width: 100px;
+font-size : 15px; 
+transition-duration : 167ms; 
+text-align : center; 
+display: none;
+`;
+
+const EllipsisDropDown = styled.button`
+position: relative;
+&:hover{
+  ${DropList}{
+      align-items : center; 
+      display : flex;
+      justify-content : center; 
+      a {
+        margin: 0 !important;
+        padding: 0px 30px;
+      }
+    }
+`
 
 const CommonCard = styled.div`
   text-align: center;
@@ -371,6 +404,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getArticles: () => dispatch(getArticlesAPI()),
+  deleteArticle: (val) => dispatch(deleteArticleApi(val))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
